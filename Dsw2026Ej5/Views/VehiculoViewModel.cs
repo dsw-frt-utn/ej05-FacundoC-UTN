@@ -25,7 +25,7 @@ public class VehiculoViewModel
         this.tipo = vehiculo.GetTipo().ToString();
         this.sucursal = vehiculo.GetSucursal().GetCodigo();
         this.capacidadCarga = vehiculo.GetCapacidadCarga();
-        this.anio = vehiculo.GetAnio();
+        this.anio = vehiculo.Getanio();
         this.kmPorLitro = vehiculo is VehiculoCombustible combustible ? combustible.GetKilometrosPorLitro() : 0;
         this.litrosExtra = vehiculo is VehiculoCombustible combustible1 ? combustible1.GetLitrosExtra() : 0;
         this.kmARecorrer = 100;
