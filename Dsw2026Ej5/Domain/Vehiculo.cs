@@ -40,9 +40,10 @@ public abstract class Vehiculo
         return modelo;
     }
 
-    public int GetAnio()
+    public int Getanio()
     {
         return anio;
+       
     }
 
     public double GetCapacidadCarga()
