@@ -1,7 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Dsw2026Ej5.Domain;
 
 public abstract class Vehiculo
@@ -25,50 +21,23 @@ public abstract class Vehiculo
         this.tipo = tipo;
     }
 
-    public string GetPatente()
-    {
-        return patente;
-    }
+    public string GetPatente() => patente;
 
-    public string GetMarca()
-    {
-        return marca;
-    }
+    public string GetMarca() => marca;
 
-    public string GetModelo()
-    {
-        return modelo;
-    }
+    public string GetModelo() => modelo;
 
-    public int GetAnio()
-    {
-        return anio;
-    }
+    public int GetAnio() => anio;
 
-    public double GetCapacidadCarga()
-    {
-        return capacidadCarga;
-    }
+    public double GetCapacidadCarga() => capacidadCarga;
 
-    public Sucursal GetSucursal()
-    {
-        return sucursal;
-    }
+    public Sucursal GetSucursal() => sucursal;
 
-    public VehiculoTipo GetTipo()
-    {
-        return tipo;
-    }
+    public VehiculoTipo GetTipo() => tipo;
 
     public abstract double CalcularConsumo(double kilometros);
 
-    public bool EsDe(VehiculoTipo tipo)
-    {
-        return this.tipo == tipo;
-    }
+    public bool EsDe(VehiculoTipo tipo) => this.tipo == tipo;
 
-    public override string ToString()
-    {
-        return $"{marca} {modelo}";
-    }
+    public override string ToString() => $"{marca} {modelo}";
 }

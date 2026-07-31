@@ -1,7 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Dsw2026Ej5.Domain;
 
 public class Responsable
@@ -17,18 +13,9 @@ public class Responsable
         this.telefono = telefono;
     }
 
-    public string GetNombre()
-    {
-        return nombre;
-    }
+    public string GetNombre() => nombre;
 
-    public string GetDocumento()
-    {
-        return documento;
-    }
+    public string GetDocumento() => documento;
 
-    public string GetTelefono()
-    {
-        return telefono;
-    }
+    public string GetTelefono() => telefono;
 }

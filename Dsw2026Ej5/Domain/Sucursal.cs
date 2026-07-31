@@ -1,7 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Dsw2026Ej5.Domain;
 
 public class Sucursal
@@ -19,23 +15,11 @@ public class Sucursal
         this.responsable = responsable;
     }
 
-    public string GetCodigo()
-    {
-        return codigo;
-    }
+    public string GetCodigo() => codigo;
 
-    public string GetDireccion()
-    {
-        return direccion;
-    }
+    public string GetDireccion() => direccion;
 
-    public string GetCiudad()
-    {
-        return ciudad;
-    }
+    public string GetCiudad() => ciudad;
 
-    public Responsable GetResponsable()
-    {
-        return responsable;
-    }
+    public Responsable GetResponsable() => responsable;
 }

@@ -1,16 +1,13 @@
-﻿using Dsw2026Ej5.Domain;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Dsw2026Ej5.Domain;
 
 namespace Dsw2026Ej5.Views;
 
 public class VehiculoViewModel
 {
     private string patente = string.Empty;
-    private string? vehiculo;
-    private string? tipo;
-    private string? sucursal;
+    private string vehiculo = string.Empty;
+    private string tipo = string.Empty;
+    private string sucursal = string.Empty;
     private double capacidadCarga;
     private double kmPorLitro;
     private int anio;
@@ -20,6 +17,7 @@ public class VehiculoViewModel
     public VehiculoViewModel(Vehiculo vehiculo)
     {
         if (vehiculo == null) return;
+
         this.patente = vehiculo.GetPatente();
         this.vehiculo = vehiculo.ToString();
         this.tipo = vehiculo.GetTipo().ToString();
@@ -31,48 +29,26 @@ public class VehiculoViewModel
         this.kmARecorrer = 100;
     }
 
-    public string GetPatente()
-    {
-        return patente;
-    }
+    public string GetPatente() => patente;
 
-    public string? GetVehiculo()
-    {
-        return vehiculo;
-    }
+    public string GetVehiculo() => vehiculo;
 
-    public string? GetTipo()
-    {
-        return tipo;
-    }
+    public string GetTipo() => tipo;
 
-    public string? GetSucursal()
-    {
-        return sucursal;
-    }
+    public string GetSucursal() => sucursal;
 
-    public double GetCapacidadCarga()
-    {
-        return capacidadCarga;
-    }
+    public double GetCapacidadCarga() => capacidadCarga;
 
-    public double GetKmPorLitro()
-    {
-        return kmPorLitro;
-    }
+    public double GetKmPorLitro() => kmPorLitro;
 
-    public int GetAnio()
-    {
-        return anio;
-    }
+    public int GetAnio() => anio;
 
-    public double GetLitrosExtra()
-    {
-        return litrosExtra;
-    }
+    public double GetLitrosExtra() => litrosExtra;
 
-    public double GetKmARecorrer()
+    public double GetKmARecorrer() => kmARecorrer;
+
+    public void SetKmARecorrer(double km)
     {
-        return kmARecorrer;
+        this.kmARecorrer = km;
     }
 }
