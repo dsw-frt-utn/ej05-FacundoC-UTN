@@ -1,136 +1,78 @@
-﻿namespace Dsw2026Ej5.Views;
+namespace Dsw2026Ej5.Views;
 
 public class ConsoleView
 {
-    private static List<VehiculoViewModel> _vehiculos = Controlador.GetVehiculos();
+    private static readonly List<VehiculoViewModel> Vehiculos = Controlador.GetVehiculos();
+
     public static void DibujarMenu()
     {
-        string? opcion = null;
+        string? opcion;
         do
         {
-            LimpiarPantalla();
-            DibujarLinea();
-            CentrarTexto("Menú Principal - Empresa de Transporte", out int _);
-            DibujarLinea();
-            Console.WriteLine("Elija una opción: \n");
+            Console.Clear();
+            Console.WriteLine("=========================================================================================");
+            Console.WriteLine("                         Menú Principal - Empresa de Transporte                          ");
+            Console.WriteLine("=========================================================================================");
+            Console.WriteLine("Elija una opción:\n");
             Console.WriteLine("1. Listar vehículos");
             Console.WriteLine("2. Agregar vehículo");
-            Console.WriteLine("3. Salir");
-            Console.WriteLine("\n");
-            Console.WriteLine("Ingrese su opción: ");
+            Console.WriteLine("3. Salir\n");
+            Console.Write("Ingrese su opción: ");
             opcion = Console.ReadLine();
+
             if (opcion == "1")
             {
-                Console.WriteLine("Listando vehículos...");
                 ListarVehiculos();
             }
             else if (opcion == "2")
             {
-                Console.WriteLine("Agregando vehículo...");
+                Console.WriteLine("\nOpción no disponible en esta versión.");
+                Console.WriteLine("Presione una tecla para continuar...");
+                Console.ReadKey();
             }
         }
         while (opcion != "3");
     }
-    public static void CentrarTexto(string? texto, out int usado, int? ancho = null, bool salto = true)
-    {
-        texto ??= string.Empty;
-        ancho ??= Console.WindowWidth;
-        int largo = texto.Length;
-        if (largo > ancho)
-        {
-            largo = ancho.Value;
-            texto = texto.Substring(0, ancho.Value);
-        }
-        int espacios = (ancho.Value - largo) / 2;
-        espacios = espacios % 2 == 0 ? espacios : espacios + 1;
-        string fin = salto ? "\n" : string.Empty;
-        string final = new string(' ', espacios) + texto + fin;
-        Console.Write(final);
-        usado = final.Length;
-    }
-    public static void LimpiarPantalla()
-    {
-        Console.Clear();
-    }
-
-    public static void DibujarLinea()
-    {
-        var with = Console.WindowWidth;
-        for (int i = 0; i < with; i++)
-        {
-            Console.Write("-");
-        }
-    }
 
     private static void ListarVehiculos()
     {
-        LimpiarPantalla();
-        string[] columnas = { "Patente", "Vehículo", "Tipo", "Cap. Carga", "Km/l", "Año", "L.Extra", "Kms a recorrer" };
-        DibujarEncabezado(columnas);
-        DibjuarDatos(columnas.Length);
-        DibujarLinea();
-        Console.Write("\n");
-        Console.Write("\n");
-        Console.WriteLine("Presione una tecla para calcular el total de consumos...");
-        Console.ReadLine();
-        Dictionary<string, double> vehiculos = new Dictionary<string, double>();
-        foreach (VehiculoViewModel vehiculo in _vehiculos)
-        {
-            vehiculos.Add(vehiculo.GetPatente(), vehiculo.GetKmARecorrer());
-        }
-        (double, double) totalConsumos = Controlador.CalcularConsumos(vehiculos);
-        DibujarLinea();
-        Console.WriteLine($"Total consumo Vehículos Eléctricos: {totalConsumos.Item1:F2} kWh");
-        Console.WriteLine($"Total consumo Vehículos Combustible: {totalConsumos.Item2:F2} Litros");
-        DibujarLinea();
-        Console.Write("\n");
-        Console.Write("\n");
-        Console.WriteLine("Presione una tecla para salir...");
-        Console.ReadLine();
-    }
-    private static void DibujarEncabezado(params string[] columnas)
-    {
-        DibujarLinea();
-        int ancho = Console.WindowWidth / columnas.Length;
+        Console.Clear();
+        Console.WriteLine("===============================================================================================================");
+        Console.WriteLine("| {0,-10} | {1,-18} | {2,-11} | {3,10} | {4,6} | {5,5} | {6,7} | {7,14} |", 
+            "Patente", "Vehículo", "Tipo", "Cap. Carga", "Km/l", "Año", "L.Extra", "Kms a recorrer");
+        Console.WriteLine("===============================================================================================================");
 
-        foreach (var columna in columnas)
+        foreach (var v in Vehiculos)
         {
-            Console.Write("|");
-            CentrarTexto(columna, out int l, ancho - 1, false);
-            Console.Write("".PadRight(ancho - 1 - l));
+            Console.WriteLine("| {0,-10} | {1,-18} | {2,-11} | {3,10:N0} | {4,6:N0} | {5,5} | {6,7:N1} | {7,14:N0} |",
+                v.GetPatente(),
+                v.GetVehiculo().Length > 18 ? v.GetVehiculo()[..18] : v.GetVehiculo(),
+                v.GetTipo(),
+                v.GetCapacidadCarga(),
+                v.GetKmPorLitro(),
+                v.GetAnio(),
+                v.GetLitrosExtra(),
+                v.GetKmARecorrer());
         }
-        Console.Write("\n");
-        DibujarLinea();
-    }
-    private static void DibjuarDatos(int columnas)
-    {
-        int ancho = Console.WindowWidth / columnas;
-        foreach (var vehiculo in _vehiculos)
+
+        Console.WriteLine("===============================================================================================================\n");
+        Console.WriteLine("Presione una tecla para calcular el total de consumos...");
+        Console.ReadKey();
+
+        Dictionary<string, double> dictVehiculos = new();
+        foreach (var vehiculo in Vehiculos)
         {
-            Console.Write("|");
-            CentrarTexto(vehiculo.GetPatente(), out int l, ancho - 1, false);
-            Console.Write("".PadRight(ancho - 1 - l));
-            Console.Write("|");
-            CentrarTexto(vehiculo.GetVehiculo(), out l, ancho - 1, false);
-            Console.Write("".PadRight(ancho - 1 - l));
-            Console.Write("|");
-            CentrarTexto(vehiculo.GetTipo(), out l, ancho - 1, false);
-            Console.Write("".PadRight(ancho - 1 - l));
-            Console.Write("|");
-            CentrarTexto(vehiculo.GetCapacidadCarga().ToString(), out l, ancho - 1, false);
-            Console.Write("".PadRight(ancho - 1 - l));
-            Console.Write("|");
-            CentrarTexto(vehiculo.GetKmPorLitro().ToString(), out l, ancho - 1, false);
-            Console.Write("".PadRight(ancho - 1 - l));
-            Console.Write("|");
-            CentrarTexto(vehiculo.GetAnio().ToString(), out l, ancho - 1, false);
-            Console.Write("".PadRight(ancho - 1 - l));
-            Console.Write("|");
-            CentrarTexto(vehiculo.GetLitrosExtra().ToString(), out l, ancho - 1, false);
-            Console.Write("".PadRight(ancho - 1 - l));
-            Console.Write("|");
-            CentrarTexto(vehiculo.GetKmARecorrer().ToString(), out l, ancho - 1, false);
-            Console.Write("".PadRight(ancho - 1 - l));
+            dictVehiculos.Add(vehiculo.GetPatente(), vehiculo.GetKmARecorrer());
         }
+
+        var (totalElectricos, totalCombustible) = Controlador.CalcularConsumos(dictVehiculos);
+
+        Console.WriteLine("\n===============================================================================================================");
+        Console.WriteLine($" Total consumo Vehículos Eléctricos   : {totalElectricos,8:F2} kWh");
+        Console.WriteLine($" Total consumo Vehículos Combustible  : {totalCombustible,8:F2} Litros");
+        Console.WriteLine("===============================================================================================================\n");
+
+        Console.WriteLine("Presione una tecla para regresar al menú...");
+        Console.ReadKey();
     }
 }

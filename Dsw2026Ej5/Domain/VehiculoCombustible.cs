@@ -1,7 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Dsw2026Ej5.Domain;
 
 public class VehiculoCombustible : Vehiculo
@@ -16,25 +12,16 @@ public class VehiculoCombustible : Vehiculo
         this.litrosExtra = litrosExtra;
     }
 
-    public double GetKilometrosPorLitro()
-    {
-        return kilometrosPorLitro;
-    }
+    public double GetKilometrosPorLitro() => kilometrosPorLitro;
 
-    public double GetLitrosExtra()
-    {
-        return litrosExtra;
-    }
+    public double GetLitrosExtra() => litrosExtra;
 
     public override double CalcularConsumo(double kilometros)
     {
-        double extra = (DateTime.Now.Year - Getanio() > 5)
-            ? (kilometros / 15) * GetLitrosExtra()
+        double extra = (DateTime.Now.Year - GetAnio() > 5)
+            ? (kilometros / 15.0) * GetLitrosExtra()
             : 0;
 
-        // Consumo total = consumo normal + consumo extra
-        double total = (kilometros / GetKilometrosPorLitro()) + extra;
-
-        return total;
+        return (kilometros / GetKilometrosPorLitro()) + extra;
     }
 }
